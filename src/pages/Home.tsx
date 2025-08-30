@@ -8,16 +8,29 @@ import {
   FormControl,
   Typography,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = () => {
   const [tipContract, setTipContract] = useState('');
+  const [showMessage, setShowMessage] = useState(false);
+  const navigate = useNavigate();
+
+  const contractLabels: Record<string, string> = {
+    vanzare: 'Vânzare',
+    donatie: 'Donație',
+  };
 
   const handleSelectChange = (event: any) => {
     setTipContract(event.target.value);
+    if (showMessage) setShowMessage(false);
   };
 
-  const handleButtonClick = () => {
-    console.log('Contract selectat:', tipContract);
+  const contractDetails = () => {
+    if (tipContract) {
+      navigate(`/detalii/${tipContract}`);
+    } else {
+      setShowMessage(true);
+    }
   };
 
   return (
@@ -36,25 +49,15 @@ const Home: React.FC = () => {
           Tipul contractului
         </Typography>
 
-        <FormControl fullWidth sx={{ mb: 3 }}>
+        <FormControl fullWidth sx={{ mb: 1 }}>
           <Select
             value={tipContract}
             onChange={handleSelectChange}
             displayEmpty
             renderValue={(selected) =>
-              selected ? (
-                selected === 'vanzare-cumparare' ? (
-                  'Vânzare-Cumpărare'
-                ) : selected === 'donatie' ? (
-                  'Donație'
-                ) : (
-                  'Procura minor'
-                )
-              ) : (
-                <Box sx={{ color: 'text.secondary' }}>
-                  Alege tipul contractului
-                </Box>
-              )
+              selected
+                ? contractLabels[selected] || 'Necunoscut'
+                : 'Alege tipul contractului'
             }
             sx={{
               backgroundColor: 'background.paper',
@@ -91,16 +94,22 @@ const Home: React.FC = () => {
               },
             }}
           >
-            <MenuItem value="vanzare-cumparare">Vânzare-Cumpărare</MenuItem>
-            <MenuItem value="donatie">Donație</MenuItem>
-            <MenuItem value="procura-minor">Procura minor</MenuItem>
+            {Object.keys(contractLabels).map((key) => (
+              <MenuItem key={key} value={key}>
+                {contractLabels[key]}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
+
+        <Typography sx={{ color: 'success.main', minHeight: '24px', mb: 2 }}>
+          {showMessage ? 'Te rog să alegi un tip de contract' : ''}
+        </Typography>
 
         <Button
           variant="contained"
           color="primary"
-          onClick={handleButtonClick}
+          onClick={contractDetails}
           sx={{ fontWeight: 'bold', textTransform: 'none' }}
         >
           Mai departe

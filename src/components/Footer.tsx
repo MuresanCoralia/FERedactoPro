@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 
-const FOOTER_HEIGHT = 50;
+const FOOTER_HEIGHT = 36;
 
 const Footer: React.FC = () => {
   return (
@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
         height: `${FOOTER_HEIGHT}px`,
       }}
     >
-      <Typography>
+      <Typography sx={{ fontSize: '0.75rem' }}>
         Drepturi de autor © 2025 RedactoPro | Toate drepturile rezervate
         <br />
         Politica de confidențialitate
