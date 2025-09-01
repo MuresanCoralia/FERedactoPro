@@ -14,11 +14,8 @@ import {
   Checkbox,
   Grid,
 } from '@mui/material';
-
-interface IDEntry {
-  file: File | null;
-  married: boolean;
-}
+import type { VanzatorCumparator } from '../models/VanzatorCumparator';
+import type { VanzareContract } from '../models/VanzareContract';
 
 interface LabeledRowProps {
   label: string;
@@ -42,7 +39,7 @@ const LabeledRow: React.FC<LabeledRowProps> = ({
 );
 
 interface IDInputProps {
-  entry: IDEntry;
+  entry: VanzatorCumparator;
   index: number;
   role: 'cumparator' | 'vanzator';
   handleFileChange: (index: number, file: File | null) => void;
@@ -56,7 +53,7 @@ const IDInput: React.FC<IDInputProps> = ({
   handleFileChange,
   handleMarriedChange,
 }) => (
-  <Box sx={{ mb: 3, borderBottom: '1px solid #ccc', pb: 2 }}>
+  <Box sx={{ mb: 3, borderBottom: '1px solid #B8A89F', pb: 2 }}>
     <Typography sx={{ mb: 1 }}>
       {role === 'cumparator' ? 'ID Cumpărător' : 'ID Vânzător'} {index + 1}
     </Typography>
@@ -113,13 +110,19 @@ const Details: React.FC = () => {
     donatie: 'Donație',
   };
 
-  const [carteFunciara, setCarteFunciara] = useState('');
-  const [creditIpotecar, setCreditIpotecar] = useState('');
+  const [vanzare, setVanzare] = useState<VanzareContract>({
+    vanzator: { file: null, married: false },
+    cumparator: { file: null, married: false },
+    carteFunciara: '',
+    creditIpotecar: '',
+  });
+
   const [openDialog, setOpenDialog] = useState<
     null | 'cumparator' | 'vanzator'
   >(null);
+
   const [numIDs, setNumIDs] = useState(1);
-  const [idEntries, setIdEntries] = useState<IDEntry[]>([]);
+  const [idEntries, setIdEntries] = useState<VanzatorCumparator[]>([]);
 
   const initializeIDEntries = (count: number) => {
     setIdEntries(
@@ -145,7 +148,7 @@ const Details: React.FC = () => {
   };
 
   const handleGenerare = () => {
-    console.log('Generare button clicked');
+    console.log('Generare Vanzare:', vanzare);
   };
 
   return (
@@ -156,11 +159,11 @@ const Details: React.FC = () => {
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
-        pt: '25px',
+        height: '100%',
       }}
     >
       <Container maxWidth="sm">
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
+        <Box sx={{ display: 'flex', mb: 4 }}>
           <Button onClick={() => navigate('/')} sx={{ mr: 2 }}>
             ← Înapoi
           </Button>
@@ -218,8 +221,10 @@ const Details: React.FC = () => {
           <TextField
             fullWidth
             variant="outlined"
-            value={carteFunciara}
-            onChange={(e) => setCarteFunciara(e.target.value)}
+            value={vanzare.carteFunciara}
+            onChange={(e) =>
+              setVanzare({ ...vanzare, carteFunciara: e.target.value })
+            }
           />
         </LabeledRow>
 
@@ -227,12 +232,13 @@ const Details: React.FC = () => {
           <TextField
             fullWidth
             variant="outlined"
-            value={creditIpotecar}
-            onChange={(e) => setCreditIpotecar(e.target.value)}
+            value={vanzare.creditIpotecar}
+            onChange={(e) =>
+              setVanzare({ ...vanzare, creditIpotecar: e.target.value })
+            }
           />
         </LabeledRow>
 
-        {/* Generare Button */}
         <Box sx={{ mt: 4, textAlign: 'center' }}>
           <Button
             variant="contained"
@@ -249,15 +255,14 @@ const Details: React.FC = () => {
         open={!!openDialog}
         onClose={() => setOpenDialog(null)}
         maxWidth="sm"
-        fullWidth
         slotProps={{
-          paper: { sx: { backgroundColor: 'background.default' } },
+          paper: { sx: { backgroundColor: 'background.default', width: 500 } },
         }}
       >
         <DialogTitle>
           {openDialog === 'cumparator' ? 'ID Cumpărător' : 'ID Vânzător'}
         </DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{ pb: 0 }}>
           <Box sx={{ pt: '10px' }}>
             <TextField
               type="number"
