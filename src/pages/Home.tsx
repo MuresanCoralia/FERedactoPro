@@ -41,11 +41,11 @@ const Home: React.FC = () => {
         alignItems: 'center',
         justifyContent: 'center',
         textAlign: 'center',
-        pt: '100px',
+        height: '100%',
       }}
     >
       <Container maxWidth="sm">
-        <Typography variant="h4" sx={{ mb: 3, fontWeight: 'bold' }}>
+        <Typography variant="h4" sx={{ mb: 4, fontWeight: 'bold' }}>
           Tipul contractului
         </Typography>
 
@@ -102,7 +102,14 @@ const Home: React.FC = () => {
           </Select>
         </FormControl>
 
-        <Typography sx={{ color: 'success.main', minHeight: '24px', mb: 2 }}>
+        <Typography
+          sx={{
+            color: 'success.main',
+            minHeight: '24px',
+            mb: 2,
+            fontWeight: 'bold',
+          }}
+        >
           {showMessage ? 'Te rog să alegi un tip de contract' : ''}
         </Typography>
 

@@ -6,11 +6,13 @@ const FOOTER_HEIGHT = 36;
 const Footer: React.FC = () => {
   return (
     <Box
+      component="footer"
       sx={{
-        color: (theme) => theme.palette.text.primary,
-        py: 2,
-        textAlign: 'center',
         height: `${FOOTER_HEIGHT}px`,
+        py: 0,
+        textAlign: 'center',
+        color: (theme) => theme.palette.text.primary,
+        backgroundColor: 'background.default',
       }}
     >
       <Typography sx={{ fontSize: '0.75rem' }}>
