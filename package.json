@@ -3,12 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "main": "electron/main.js",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css,scss,md}\""
+    "electron": "cross-env ELECTRON_START_URL=http://localhost:5173 electron .",
+    "build": "vite build",
+    "dist": "electron-builder"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
@@ -22,9 +22,13 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",
+    "@types/node": "^24.3.0",
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^5.0.0",
+    "cross-env": "^7.0.3",
+    "electron": "^37.4.0",
+    "electron-builder": "^26.0.12",
     "eslint": "^9.33.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
@@ -33,5 +37,20 @@
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.39.1",
     "vite": "^7.1.2"
+  },
+  "build": {
+    "appId": "com.redactopro.app",
+    "productName": "RedactoPro",
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*"
+    ],
+    "extraMetadata": {
+      "main": "dist-electron/main.js"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "./public/icon.ico"
+    }
   }
 }

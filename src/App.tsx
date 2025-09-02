@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -8,7 +8,7 @@ import { Box } from '@mui/material';
 
 const App: React.FC = () => {
   return (
-    <Router>
+    <HashRouter>
       <Box
         sx={{
           display: 'flex',
@@ -32,7 +32,7 @@ const App: React.FC = () => {
         </Box>
         <Footer />
       </Box>
-    </Router>
+    </HashRouter>
   );
 };
 
