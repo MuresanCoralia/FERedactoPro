@@ -8,7 +8,7 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1000,
     height: 800,
-    icon: path.join(__dirname, '../public/icon.ico'),
+    icon: path.join(__dirname, '../public/icon.png'),
     webPreferences: {
       contextIsolation: true,
       preload: path.join(__dirname, 'preload.js'),

@@ -26,6 +26,7 @@
     "@types/react": "^19.1.10",
     "@types/react-dom": "^19.1.7",
     "@vitejs/plugin-react": "^5.0.0",
+    "concurrently": "^9.2.1",
     "cross-env": "^7.0.3",
     "electron": "^37.4.0",
     "electron-builder": "^26.0.12",
@@ -36,7 +37,8 @@
     "prettier": "^3.6.2",
     "typescript": "~5.8.3",
     "typescript-eslint": "^8.39.1",
-    "vite": "^7.1.2"
+    "vite": "^7.1.2",
+    "wait-on": "^8.0.4"
   },
   "build": {
     "appId": "com.redactopro.app",

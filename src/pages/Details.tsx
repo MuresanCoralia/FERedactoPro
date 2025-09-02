@@ -12,10 +12,11 @@ import {
   DialogActions,
   FormControlLabel,
   Checkbox,
-  Grid,
 } from '@mui/material';
 import type { VanzatorCumparator } from '../models/VanzatorCumparator';
 import type { VanzareContract } from '../models/VanzareContract';
+// @ts-ignore
+import ArrowBackIcon from '../assets/sageata.png';
 
 interface LabeledRowProps {
   label: string;
@@ -26,17 +27,17 @@ interface LabeledRowProps {
 const LabeledRow: React.FC<LabeledRowProps> = ({
   label,
   children,
-  labelWidth = '120px',
-}) => (
-  <Grid container alignItems="center" sx={{ mb: 2, display: 'flex' }}>
-    <Grid item xs="auto" sx={{ width: labelWidth }}>
-      <Typography textAlign="left">{label}</Typography>
-    </Grid>
-    <Grid item xs sx={{ flexGrow: 1 }}>
-      {children}
-    </Grid>
-  </Grid>
-);
+  labelWidth = 120,
+}) => {
+  return (
+    <Box display="flex" alignItems="center" mb={2}>
+      <Box sx={{ width: labelWidth }}>
+        <Typography textAlign="left">{label}</Typography>
+      </Box>
+      <Box flexGrow={1}>{children}</Box>
+    </Box>
+  );
+};
 
 interface IDInputProps {
   entry: VanzatorCumparator;
@@ -164,8 +165,18 @@ const Details: React.FC = () => {
     >
       <Container maxWidth="sm">
         <Box sx={{ display: 'flex', mb: 4 }}>
-          <Button onClick={() => navigate('/')} sx={{ mr: 2 }}>
-            ← Înapoi
+          <Button
+            onClick={() => navigate('/')}
+            sx={{
+              position: 'absolute',
+              left: '50px',
+            }}
+          >
+            <img
+              src={ArrowBackIcon}
+              alt="Înapoi"
+              style={{ width: '32px', height: '32px' }}
+            />
           </Button>
           <Typography variant="h4" sx={{ flexGrow: 1, textAlign: 'center' }}>
             Detalii contract:{' '}
